@@ -20,7 +20,9 @@ public class AuthController {
 
   @PostMapping("/login")
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest req, HttpSession session) {
-    return ResponseEntity.ok(authService.login(req, session));
+    LoginResponse res = authService.login(req, session);
+    session.setAttribute("LOGIN_USER", res);
+    return ResponseEntity.ok(res);
   }
 
   @GetMapping("/me")

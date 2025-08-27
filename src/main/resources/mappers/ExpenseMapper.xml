@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bill.mapper.ExpenseMapper">
+
+  <!-- 단건 조회 (id로) -->
+  <select id="findById" parameterType="long" resultType="com.example.bill.vo.ExpenseVO">
+    SELECT id, user_id, amount, note, spend_date
+    FROM dbo.Expenses
+    WHERE id = #{id}
+  </select>
+
+  <!-- 특정 유저의 월간 조회 -->
+  <select id="findByMonth" resultType="com.example.bill.vo.ExpenseVO">
+    SELECT id, user_id, amount, note, spend_date
+    FROM dbo.Expenses
+    WHERE user_id = #{userId}
+      AND YEAR(spend_date) = #{year}
+      AND MONTH(spend_date) = #{month}
+    ORDER BY spend_date ASC
+  </select>
+
+  <!-- 특정 유저의 주간 조회 -->
+  <select id="findByWeek" resultType="com.example.bill.vo.ExpenseVO">
+    SELECT id, user_id, amount, note, spend_date
+    FROM dbo.Expenses
+    WHERE user_id = #{userId}
+      AND YEAR(spend_date) = #{year}
+      AND MONTH(WEEK, spend_date) = #{week}
+    ORDER BY spend_date ASC
+  </select>
+
+  <!-- 특정 유저의 일간 조회 -->
+  <select id="findByDay" resultType="com.example.bill.vo.ExpenseVO">
+    SELECT id, user_id, amount, note, spend_date
+    FROM dbo.Expenses
+    WHERE user_id = #{userId}
+      AND spend_date = #{date}
+    ORDER BY spend_date ASC
+  </select>
+
+  <!-- INSERT -->
+  <insert id="insertExpense"
+    parameterType="com.example.bill.vo.ExpenseVO"
+    useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    INSERT INTO dbo.Expenses (user_id, amount, note, spend_date)
+    VALUES (#{userId}, #{amount}, #{note}, #{spendDate})
+  </insert>
+
+  <!-- DELETE -->
+  <delete id="deleteExpense" parameterType="long">
+    DELETE FROM dbo.Expenses WHERE id = #{id}
+  </delete>
+
+</mapper>
