@@ -1,6 +1,5 @@
 package com.example.bill.dto.response;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponse {
-  private Long id;
+public class SignUpResponse {
+  private Long userId;
   private String username;
 }

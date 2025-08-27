@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: todo
+
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=todo;encrypt=true;trustServerCertificate=true
+    username: todo
+    password: todo119!
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      validation-timeout: 5000
+      idle-timeout: 600000
+
+  sql:
+    init:
+      mode: never     # 필요 시 always로
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    default-statement-timeout: 30
+    jdbc-type-for-null: 'NULL'
+  type-aliases-package: com.example.todo.vo
+  mapper-locations: classpath*:mapper/*.xml
+
+logging:
+  level:
+    com.zaxxer.hikari: INFO
+    org.mybatis: DEBUG
+    com.microsoft.sqlserver: INFO

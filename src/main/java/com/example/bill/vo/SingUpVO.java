@@ -1,11 +1,9 @@
 package com.example.bill.vo;
 
-
 import lombok.Data;
 
 @Data
-public class UserVO {
+public class SingUpVO {
   private Long id;
   private String username;
-  private String password;
 }
